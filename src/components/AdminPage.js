@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import StatusBar from './StatusBar';
 import Players from './Players';
+import Config from './Config';
 
 class AdminPage extends Component {
   render() {
@@ -13,6 +14,7 @@ class AdminPage extends Component {
         />
         <div className="admin-page-containers-wrapper">
           <Players />
+          <Config />
         </div>
       </div>
     );

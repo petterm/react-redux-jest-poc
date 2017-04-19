@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
 import Container from './Container';
 import Header from './Header';
-import List from './List';
-import Row from './Row';
+import List from './List/List';
+import ButtonRow from './List/ButtonRow';
+
+const playerRow = (player, banPlayer) => {
+  const buttons = [
+    {
+      key: 'banPlayer',
+      onClick: () => banPlayer(player.username),
+      title: 'Ban player',
+    },
+  ];
+
+  return (
+    <ButtonRow
+      key={player.username}
+      title={player.username}
+      buttonData={buttons}
+    />
+  );
+};
+
 
 class Players extends Component {
   render() {
@@ -13,15 +32,15 @@ class Players extends Component {
       { username: 'michelangelo' },
     ];
 
-    const players = playerData.map(player => {
-      return <Row title={player.username} key={player.username} />;
-    });
+    const banPlayer = username => () => {
+      console.log('Ban player', username);
+    };
 
     return (
       <Container> {/* minimized, hidden, options */}
         <Header title={'Players'} />
         <List>
-          { players }
+          { playerData.map(player => playerRow(player, banPlayer(player))) }
         </List>
       </Container>
     );

@@ -4,17 +4,24 @@ import PropTypes from 'prop-types';
 class StatusBar extends Component {
   render() {
     const { status, playersOnline, playersTotal, onStop, onStart } = this.props;
-    let button;
-    if  (status === 'online') {
-      button = <button onClick={e => onStop(e)}>Stop</button>;
+
+    let buttonTitle;
+    let onButtonClick;
+    if (status === 'online') {
+      buttonTitle = 'Stop';
+      onButtonClick = onStop;
     } else {
-      button = <button onClick={e => onStart(e)}>Start</button>;
+      buttonTitle = 'Start';
+      onButtonClick = onStart;
     }
+
     return (
-      <div>
-        <h2>Status: <span>{ status }</span></h2>
-        <span>Players: { playersOnline } ({ playersTotal })</span>
-        { button }
+      <div className="status-bar">
+        <h2 className="status-bar__title">Status: <span>{ status }</span></h2>
+        <p className="status-bar__info">Players: { playersOnline } ({ playersTotal })</p>
+        <button className="status-bar__button" onClick={e => onButtonClick(e)}>
+          { buttonTitle }
+        </button>
       </div>
     );
   }
