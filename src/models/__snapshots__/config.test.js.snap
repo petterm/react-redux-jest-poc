@@ -1,4 +1,4 @@
-exports[`config actions should handle CONFIG_SAVE_SUCCESS action 1`] = `
+exports[`config actions handles CONFIG_SAVE_SUCCESS action 1`] = `
 Array [
   Object {
     "type": "CONFIG_SAVE_START",
@@ -13,7 +13,7 @@ Array [
 ]
 `;
 
-exports[`config actions should handle CONFIG_UPLOAD_SUCCESS action 1`] = `
+exports[`config actions handles CONFIG_UPLOAD_SUCCESS action 1`] = `
 Array [
   Object {
     "type": "CONFIG_UPLOAD_START",

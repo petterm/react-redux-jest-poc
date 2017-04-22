@@ -41,9 +41,8 @@ describe('config reducer', () => {
   });
 });
 
-
 describe('config actions', () => {
-  it('should handle CONFIG_SAVE_SUCCESS action', () => {
+  it('handles CONFIG_SAVE_SUCCESS action', () => {
     const store = mockStore({
       ...initialState,
       saving: true,
@@ -56,7 +55,7 @@ describe('config actions', () => {
       });
   });
 
-  it('should handle CONFIG_UPLOAD_SUCCESS action', () => {
+  it('handles CONFIG_UPLOAD_SUCCESS action', () => {
     const store = mockStore({
       ...initialState,
       uploading: true,
