@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import AdminPage from './AdminPage';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <AdminPage />,
   document.getElementById('root'));

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import HeaderButton from './HeaderButton';
 
 class Header extends Component {
   render() {
@@ -9,7 +8,7 @@ class Header extends Component {
       <div>
         <h3 className="header-title">{ title }</h3>
         <div className="header-right">
-          { buttons.map(button => <HeaderButton icon={button.icon} onClick={button.onClick} />) }
+          { buttons }
         </div>
       </div>
     );
@@ -18,7 +17,7 @@ class Header extends Component {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  buttons: PropTypes.arrayOf(PropTypes.object),
+  buttons: PropTypes.arrayOf(PropTypes.element),
 };
 
 Header.defaultProps = {

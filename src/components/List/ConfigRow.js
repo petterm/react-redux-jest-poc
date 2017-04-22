@@ -6,15 +6,30 @@ class ConfigRow extends Component {
     const { title, description, type, value, defaultValue, onChange } = this.props;
 
     let input;
-    if (type === 'number') {
-      input = (
-        <input
-          type="number"
-          value={value}
-          placeholder={defaultValue}
-          onChange={e => onChange(e.target.value)}
-        />
-      );
+    switch (type) {
+      case 'number':
+        input = (
+          <input
+            type="number"
+            value={value}
+            placeholder={defaultValue}
+            onChange={e => onChange(e.target.value)}
+          />
+        );
+        break;
+      case 'text':
+        input = (
+          <input
+            type="text"
+            value={value}
+            placeholder={defaultValue}
+            onChange={e => onChange(e.target.value)}
+          />
+        );
+        break;
+      default:
+        input = <span>Invalid input type</span>;
+        break;
     }
 
     return (

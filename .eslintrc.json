@@ -18,7 +18,8 @@
     "max-len": [2, 100],
     "no-param-reassign": ["error", { "props": false }],
     "react/jsx-filename-extension": "off",
-    "react/prefer-stateless-function": "off"
+    "react/prefer-stateless-function": "off",
+    "react/forbid-prop-types": ["error", { "forbid": ["any", "array"] }]
   },
   "env": {
     "browser": true,
