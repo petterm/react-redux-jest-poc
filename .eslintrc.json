@@ -4,10 +4,11 @@
     "describe": true,
     "expect": true,
     "it": true,
-    "test": true
+    "test": true,
+    "jest": true
   },
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 7
   },
   "plugins": [
       "standard",

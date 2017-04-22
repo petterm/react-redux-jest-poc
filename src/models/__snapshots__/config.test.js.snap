@@ -1,0 +1,134 @@
+exports[`config actions should handle CONFIG_SAVE_SUCCESS action 1`] = `
+Array [
+  Object {
+    "type": "CONFIG_SAVE_START",
+  },
+  Object {
+    "payload": Object {
+      "autosave_interval": 30,
+      "name": "new name",
+    },
+    "type": "CONFIG_SAVE_SUCCESS",
+  },
+]
+`;
+
+exports[`config actions should handle CONFIG_UPLOAD_SUCCESS action 1`] = `
+Array [
+  Object {
+    "type": "CONFIG_UPLOAD_START",
+  },
+  Object {
+    "payload": Object {
+      "autosave_interval": 30,
+      "name": "new name",
+    },
+    "type": "CONFIG_UPLOAD_SUCCESS",
+  },
+]
+`;
+
+exports[`config reducer handles CONFIG_SAVE_FAIL 1`] = `
+Object {
+  "optionInfo": Object {
+    "autosave_interval": Object {
+      "defaultValue": 10,
+      "description": "Autosave interval in minutes",
+      "title": "Autosave interval",
+      "type": "number",
+    },
+    "name": Object {
+      "defaultValue": "Default server",
+      "description": "Name of the factorio server",
+      "title": "Server name",
+      "type": "text",
+    },
+  },
+  "optionValues": Object {},
+  "saveFailed": true,
+  "saving": false,
+  "unsavedChanges": true,
+  "uploadFailed": false,
+  "uploading": false,
+}
+`;
+
+exports[`config reducer handles CONFIG_SAVE_START 1`] = `
+Object {
+  "optionInfo": Object {
+    "autosave_interval": Object {
+      "defaultValue": 10,
+      "description": "Autosave interval in minutes",
+      "title": "Autosave interval",
+      "type": "number",
+    },
+    "name": Object {
+      "defaultValue": "Default server",
+      "description": "Name of the factorio server",
+      "title": "Server name",
+      "type": "text",
+    },
+  },
+  "optionValues": Object {},
+  "saveFailed": false,
+  "saving": true,
+  "unsavedChanges": false,
+  "uploadFailed": false,
+  "uploading": false,
+}
+`;
+
+exports[`config reducer handles CONFIG_SAVE_SUCCESS 1`] = `
+Object {
+  "optionInfo": Object {
+    "autosave_interval": Object {
+      "defaultValue": 10,
+      "description": "Autosave interval in minutes",
+      "title": "Autosave interval",
+      "type": "number",
+    },
+    "name": Object {
+      "defaultValue": "Default server",
+      "description": "Name of the factorio server",
+      "title": "Server name",
+      "type": "text",
+    },
+  },
+  "optionValues": Object {
+    "autosave_interval": 30,
+    "name": "new name",
+  },
+  "saveFailed": false,
+  "saving": false,
+  "unsavedChanges": false,
+  "uploadFailed": false,
+  "uploading": false,
+}
+`;
+
+exports[`config reducer handles CONFIG_UPDATE_VALUE 1`] = `
+Object {
+  "optionInfo": Object {
+    "autosave_interval": Object {
+      "defaultValue": 10,
+      "description": "Autosave interval in minutes",
+      "title": "Autosave interval",
+      "type": "number",
+    },
+    "name": Object {
+      "defaultValue": "Default server",
+      "description": "Name of the factorio server",
+      "title": "Server name",
+      "type": "text",
+    },
+  },
+  "optionValues": Object {
+    "name": "newName",
+  },
+  "saveFailed": false,
+  "saving": false,
+  "unsavedChanges": true,
+  "uploadFailed": false,
+  "uploading": false,
+}
+`;
