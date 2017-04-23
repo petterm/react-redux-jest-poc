@@ -6,40 +6,13 @@ import reducer, {
   save,
   saveStart,
   saveSuccess,
-  saveFailed,
+  saveFail,
   upload,
-} from './config';
+} from '../config';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const newOptionValues = { name: 'new name', autosave_interval: 30 };
-
-describe('config reducer', () => {
-  it('handles CONFIG_UPDATE_VALUE', () => {
-    expect(reducer(initialState, updateValue('name', 'newName'))).toMatchSnapshot();
-  });
-
-  it('handles CONFIG_SAVE_START', () => {
-    expect(reducer({
-      ...initialState,
-      saving: true,
-    }, saveStart())).toMatchSnapshot();
-  });
-  it('handles CONFIG_SAVE_SUCCESS', () => {
-    expect(reducer({
-      ...initialState,
-      saving: false,
-      unsavedChanges: false,
-    }, saveSuccess(newOptionValues))).toMatchSnapshot();
-  });
-  it('handles CONFIG_SAVE_FAIL', () => {
-    expect(reducer({
-      ...initialState,
-      saving: true,
-      unsavedChanges: true,
-    }, saveFailed({ error: 'some error' }))).toMatchSnapshot();
-  });
-});
 
 describe('config actions', () => {
   it('handles CONFIG_SAVE_SUCCESS action', () => {
@@ -66,5 +39,32 @@ describe('config actions', () => {
       .then(() => {
         expect(store.getActions()).toMatchSnapshot();
       });
+  });
+});
+
+describe('config reducer', () => {
+  it('handles CONFIG_UPDATE_VALUE', () => {
+    expect(reducer(initialState, updateValue('name', 'newName'))).toMatchSnapshot();
+  });
+
+  it('handles CONFIG_SAVE_START', () => {
+    expect(reducer({
+      ...initialState,
+      saving: true,
+    }, saveStart())).toMatchSnapshot();
+  });
+  it('handles CONFIG_SAVE_SUCCESS', () => {
+    expect(reducer({
+      ...initialState,
+      saving: false,
+      unsavedChanges: false,
+    }, saveSuccess(newOptionValues))).toMatchSnapshot();
+  });
+  it('handles CONFIG_SAVE_FAIL', () => {
+    expect(reducer({
+      ...initialState,
+      saving: true,
+      unsavedChanges: true,
+    }, saveFail({ error: 'some error' }))).toMatchSnapshot();
   });
 });

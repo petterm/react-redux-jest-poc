@@ -1,0 +1,22 @@
+exports[`config utils can make action-creators 1`] = `
+Object {
+  "type": "SOME_ACTION_TYPE",
+}
+`;
+
+exports[`config utils can make action-creators 2`] = `
+Object {
+  "payload": "value-1",
+  "type": "SOME_ACTION_TYPE",
+}
+`;
+
+exports[`config utils can make action-creators 3`] = `
+Object {
+  "payload": Object {
+    "arg-1": "value-1",
+    "arg-2": "value-2",
+  },
+  "type": "SOME_ACTION_TYPE",
+}
+`;

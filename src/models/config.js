@@ -1,68 +1,45 @@
+/* eslint func-names: 'off', prefer-arrow-callback: 'off' */
 // import updeep from 'updeep';
 import { types, defaultOptions } from './configConstants';
+import makeActionCreator from './utils';
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const updateValue = (name, value) => ({
-  // TODO: Should do ajax update
-  type: types.CONFIG_UPDATE_VALUE,
-  payload: { name, value },
-});
-export const refresh = config => ({
-  type: types.CONFIG_REFRESH,
-  payload: config,
-});
-
-export const saveStart = () => ({
-  type: types.CONFIG_SAVE_START,
-});
-export const saveSuccess = data => ({
-  type: types.CONFIG_SAVE_SUCCESS,
-  payload: data,
-});
-export const saveFailed = () => ({
-  type: types.CONFIG_SAVE_FAIL,
-});
+export const refresh = makeActionCreator(types.CONFIG_REFRESH);
+export const updateValue = makeActionCreator(types.CONFIG_UPDATE_VALUE, 'name', 'value');
+export const saveStart = makeActionCreator(types.CONFIG_SAVE_START);
+export const saveSuccess = makeActionCreator(types.CONFIG_SAVE_SUCCESS);
+export const saveFail = makeActionCreator(types.CONFIG_SAVE_FAIL);
 export const save = () => dispatch => {
   dispatch(saveStart());
-  return fetch('/api/saveConfig', {})
+  return fetch('/api/config/save', {})
     .then(response => response.json())
     .then(responseJson => dispatch(saveSuccess(responseJson)))
-    .catch(error => dispatch(saveFailed(error)));
+    .catch(error => dispatch(saveFail(error)));
 };
 
-export const uploadStart = () => ({
-  type: types.CONFIG_UPLOAD_START,
-});
-export const uploadSuccess = data => ({
-  type: types.CONFIG_UPLOAD_SUCCESS,
-  payload: data,
-});
-export const uploadFail = error => ({
-  type: types.CONFIG_UPLOAD_FAIL,
-  payload: error,
-});
+export const uploadStart = makeActionCreator(types.CONFIG_UPLOAD_START);
+export const uploadSuccess = makeActionCreator(types.CONFIG_UPLOAD_SUCCESS);
+export const uploadFail = makeActionCreator(types.CONFIG_UPLOAD_FAIL);
 export const upload = file => dispatch => {
-  dispatch(uploadStart());
-
   const data = new FormData();
   data.append('file', file);
   data.append('name', 'serverConfig');
 
-  return fetch('/api/uploadConfig', {
+  dispatch(uploadStart());
+  return fetch('/api/config/upload', {
     method: 'POST',
     body: data,
   })
-  .then(response => response.json())
-  .then(responseJson => dispatch(uploadSuccess(responseJson)))
-  .catch(error => dispatch(uploadFail(error)));
+    .then(response => response.json())
+    .then(responseJson => dispatch(uploadSuccess(responseJson)))
+    .catch(error => dispatch(uploadFail(error)));
 };
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-
 export const initialState = {
   uploading: false,
   uploadFailed: false,
