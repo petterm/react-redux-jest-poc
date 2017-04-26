@@ -1,4 +1,4 @@
-import makeActionCreator from '../utils';
+import { makeActionCreator } from '../utils';
 
 describe('config utils', () => {
   it('can make action-creators', () => {

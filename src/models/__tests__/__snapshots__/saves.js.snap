@@ -1,3 +1,15 @@
+exports[`handles syncronize actions handles failed syncronize action 1`] = `
+Array [
+  Object {
+    "type": "SAVES_SYNC_START",
+  },
+  Object {
+    "payload": [Error: Server error],
+    "type": "SAVES_SYNC_FAIL",
+  },
+]
+`;
+
 exports[`handles syncronize actions handles successful syncronize action 1`] = `
 Array [
   Object {
@@ -15,4 +27,63 @@ Array [
     "type": "SAVES_SYNC_SUCCESS",
   },
 ]
+`;
+
+exports[`handles syncronize actions reduces syncFail action 1`] = `
+Object {
+  "deleteError": undefined,
+  "deleting": false,
+  "newSaveConfig": Object {},
+  "saves": Object {},
+  "syncError": [Error: Some error],
+  "syncronizing": false,
+  "uploadError": undefined,
+  "uploading": false,
+}
+`;
+
+exports[`handles syncronize actions reduces syncStart action 1`] = `
+Object {
+  "deleteError": undefined,
+  "deleting": false,
+  "newSaveConfig": Object {},
+  "saves": Object {},
+  "syncError": undefined,
+  "syncronizing": true,
+  "uploadError": undefined,
+  "uploading": false,
+}
+`;
+
+exports[`handles syncronize actions reduces syncStart action 2`] = `
+Object {
+  "deleteError": undefined,
+  "deleting": false,
+  "newSaveConfig": Object {},
+  "saves": Object {},
+  "syncError": undefined,
+  "syncronizing": true,
+  "uploadError": undefined,
+  "uploading": false,
+}
+`;
+
+exports[`handles syncronize actions reduces syncSuccess action 1`] = `
+Object {
+  "deleteError": undefined,
+  "deleting": false,
+  "newSaveConfig": Object {},
+  "saves": Object {
+    "another_save": Object {
+      "timestamp": 2234567,
+    },
+    "save 1": Object {
+      "timestamp": 1234567,
+    },
+  },
+  "syncError": undefined,
+  "syncronizing": false,
+  "uploadError": undefined,
+  "uploading": false,
+}
 `;

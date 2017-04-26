@@ -1,7 +1,7 @@
 /* eslint func-names: 'off', prefer-arrow-callback: 'off' */
 // import updeep from 'updeep';
 import { types, defaultOptions } from './configConstants';
-import makeActionCreator from './utils';
+import { makeActionCreator, handleFetchErrors } from './utils';
 
 // ------------------------------------
 // Actions
@@ -11,9 +11,17 @@ export const updateValue = makeActionCreator(types.CONFIG_UPDATE_VALUE, 'name', 
 export const saveStart = makeActionCreator(types.CONFIG_SAVE_START);
 export const saveSuccess = makeActionCreator(types.CONFIG_SAVE_SUCCESS);
 export const saveFail = makeActionCreator(types.CONFIG_SAVE_FAIL);
-export const save = () => dispatch => {
+export const save = optionValues => dispatch => {
   dispatch(saveStart());
-  return fetch('/api/config/save', {})
+  return fetch('/api/config/save', {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify(optionValues),
+  })
+    .then(handleFetchErrors)
     .then(response => response.json())
     .then(responseJson => dispatch(saveSuccess(responseJson)))
     .catch(error => dispatch(saveFail(error)));
@@ -32,6 +40,7 @@ export const upload = file => dispatch => {
     method: 'POST',
     body: data,
   })
+    .then(handleFetchErrors)
     .then(response => response.json())
     .then(responseJson => dispatch(uploadSuccess(responseJson)))
     .catch(error => dispatch(uploadFail(error)));
@@ -46,7 +55,10 @@ export const initialState = {
   unsavedChanges: false,
   saving: false,
   saveFailed: false,
-  optionValues: {},
+  optionValues: {
+    name: 'Server name',
+    autosave_interval: 10,
+  },
   optionInfo: defaultOptions,
 };
 

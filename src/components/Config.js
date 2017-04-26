@@ -7,7 +7,7 @@ import Header from './Header';
 import HeaderUpload from './HeaderUpload';
 import List from './List/List';
 import ConfigRow from './List/ConfigRow';
-import { updateValue, uploadStart, uploadSuccess, uploadFail } from '../models/config';
+import { updateValue, save, upload } from '../models/config';
 
 const configRows = (values, info, onChangeThunk) => (
   Object.keys(values).map(optionName => (
@@ -25,6 +25,10 @@ const uploadConfig = file => {
 };
 
 class Config extends Component {
+  componentDidMount() {
+    // Refresh data here?
+  }
+
   render() {
     const { actions, optionValues, optionInfo, uploading, uploadFailed } = this.props;
 
@@ -52,6 +56,7 @@ class Config extends Component {
         <List disabled={uploading}>
           { configRows(optionValues, optionInfo, onChangeThunk) }
         </List>
+        <button onClick={() => actions.save(optionValues)}>Save</button>
       </Container>
     );
   }
@@ -73,9 +78,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       updateValue,
-      uploadStart,
-      uploadSuccess,
-      uploadFail,
+      save,
+      upload,
     }, dispatch),
   };
 }
