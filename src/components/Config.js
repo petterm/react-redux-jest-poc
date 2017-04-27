@@ -30,7 +30,16 @@ class Config extends Component {
   }
 
   render() {
-    const { actions, optionValues, optionInfo, uploading, uploadFailed } = this.props;
+    const {
+      actions,
+      optionValues,
+      optionInfo,
+      unsavedChanges,
+      uploading,
+      uploadFailed,
+      saving,
+      saveFailed,
+    } = this.props;
 
     const onChangeThunk = name => value => {
       actions.updateValue(name, value);
@@ -49,6 +58,9 @@ class Config extends Component {
     if (uploadFailed) {
       title = 'Upload failed!';
     }
+    if (saveFailed) {
+      title = 'Save failed!';
+    }
 
     return (
       <Container> {/* minimized, hidden, options */}
@@ -56,7 +68,9 @@ class Config extends Component {
         <List disabled={uploading}>
           { configRows(optionValues, optionInfo, onChangeThunk) }
         </List>
-        <button onClick={() => actions.save(optionValues)}>Save</button>
+        <button onClick={() => actions.save(optionValues)} disabled={!unsavedChanges || saving}>
+          { saving ? 'Saving' : 'Save' }
+        </button>
       </Container>
     );
   }
@@ -66,8 +80,19 @@ Config.propTypes = {
   actions: PropTypes.object.isRequired,
   optionValues: PropTypes.object.isRequired,
   optionInfo: PropTypes.object.isRequired,
-  uploading: PropTypes.bool.isRequired,
-  uploadFailed: PropTypes.bool.isRequired,
+  unsavedChanges: PropTypes.bool,
+  uploading: PropTypes.bool,
+  uploadFailed: PropTypes.bool,
+  saving: PropTypes.bool,
+  saveFailed: PropTypes.bool,
+};
+
+Config.defaultProps = {
+  unsavedChanges: false,
+  uploading: false,
+  uploadFailed: false,
+  saving: false,
+  saveFailed: false,
 };
 
 const mapStateToProps = state => ({

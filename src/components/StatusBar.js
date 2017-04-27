@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { startServer, stopServer } from '../models/status';
 
 class StatusBar extends Component {
   render() {
-    const { status, playersOnline, playersTotal, onStop, onStart } = this.props;
+    const { status, playersOnline, playersTotal, actions } = this.props;
 
     let buttonTitle;
     let onButtonClick;
     if (status === 'online') {
       buttonTitle = 'Stop';
-      onButtonClick = onStop;
+      onButtonClick = actions.stopServer;
     } else {
       buttonTitle = 'Start';
-      onButtonClick = onStart;
+      onButtonClick = actions.startServer;
     }
 
+    let playerStatus;
+    if (status === 'online') {
+      playerStatus = <p className="status-bar__info">Players: {playersOnline} ({playersTotal})</p>;
+    }
     return (
       <div className="status-bar">
         <h2 className="status-bar__title">Status: <span>{ status }</span></h2>
-        <p className="status-bar__info">Players: { playersOnline } ({ playersTotal })</p>
+        { playerStatus }
         <button className="status-bar__button" onClick={e => onButtonClick(e)}>
           { buttonTitle }
         </button>
@@ -29,8 +36,7 @@ class StatusBar extends Component {
 
 StatusBar.propTypes = {
   status: PropTypes.string.isRequired,
-  onStop: PropTypes.func.isRequired,
-  onStart: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
   playersOnline: PropTypes.number,
   playersTotal: PropTypes.number,
 };
@@ -40,4 +46,17 @@ StatusBar.defaultProps = {
   playersTotal: 0,
 };
 
-export default StatusBar;
+const mapStateToProps = state => ({
+  ...state.serverStatus,
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      stopServer,
+      startServer,
+    }, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatusBar);
